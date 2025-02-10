@@ -16,9 +16,8 @@ const Login = () => {
       const loginRes = await axios.post(`${backendBaseUrl}/api/auth/login`, {
         email, password,
       }, { withCredentials: true, });
-      console.log(loginRes.data);
       dispatch(addUser(loginRes.data));
-      return navigate("/");
+      return navigate("/profile");
     } catch (error) {
       console.log(error)
     }
@@ -32,7 +31,7 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <label className="form-control w-full max-w-xs">
               <div className="label">
-                <span className="label-text">User Name</span>
+                <span className="label-text">Email</span>
               </div>
               <div className="input input-bordered flex items-center gap-2">
                 <svg

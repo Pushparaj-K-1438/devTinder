@@ -1,8 +1,26 @@
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom"
+import { removeUser } from "../utils/userSlice";
+import { backendBaseUrl } from "../utils/constants";
+
 const NavBar = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        try {
+            await axios.post(`${backendBaseUrl}/api/auth/logout`, {}, { withCredentials: true });
+            dispatch(removeUser());
+            navigate('/login');
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
     return (
         <div className="navbar bg-base-300">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">DevTinder</a>
+                <Link to="/" className="btn btn-ghost text-xl">DevTinder</Link>
             </div>
             <div className="flex-none gap-2">
                 <div className="dropdown dropdown-end">
@@ -17,13 +35,13 @@ const NavBar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li>
-                            <a className="justify-between">
+                            <Link to='/profile' className="justify-between">
                                 Profile
                                 <span className="badge">New</span>
-                            </a>
+                            </Link>
                         </li>
                         <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        <li onClick={handleLogout}><a>Logout</a></li>
                     </ul>
                 </div>
             </div>

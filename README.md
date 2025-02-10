@@ -12,3 +12,4 @@
 - cors setup and configure
 - install redux toolkit npm i @reduxjs/toolkit react-toolkit
 - setup redux store and configure redux to store all data in redux store
+- setup and congigure register user
