@@ -3,6 +3,7 @@ import { useState } from "react"
 import { backendBaseUrl } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -15,6 +16,7 @@ const Register = () => {
     const [about, setAbout] = useState("");
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     const registerUser = async () => {
@@ -35,6 +37,8 @@ const Register = () => {
                 formData, { withCredentials: true, headers: { "Content-Type": "multipart/form-data" } }
             );
             dispatch(addUser(res.data));
+            return navigate("/profile");
+
         } catch (error) {
             console.error(error);
         }

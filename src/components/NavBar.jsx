@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { removeUser } from "../utils/userSlice";
 import { backendBaseUrl } from "../utils/constants";
@@ -7,6 +7,7 @@ import { backendBaseUrl } from "../utils/constants";
 const NavBar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const data = useSelector((state) => state.user);
     const handleLogout = async () => {
         try {
             await axios.post(`${backendBaseUrl}/api/auth/logout`, {}, { withCredentials: true });
@@ -27,8 +28,8 @@ const NavBar = () => {
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                             <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                alt="Profile Image"
+                                src={backendBaseUrl+'/'+data?.profilePhoto} />
                         </div>
                     </div>
                     <ul
